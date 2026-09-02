@@ -1,6 +1,6 @@
 <odoo>
     <menuitem id="employee_equipment_root_menu" name="Employee Equipment" sequence="1" />
-    <menuitem id="equipment_menu" name="Equipment" parent="employee_equipment_root_menu" />
-    <menuitem id="hr_employee_menu" name="Employee" parent="employee_equipment_root_menu" />
+    <menuitem id="equipment_menu" name="Equipment" parent="employee_equipment_root_menu" action="equipment_action" />
+    <menuitem id="hr_employee_menu" name="Employee" parent="employee_equipment_root_menu" action="hr_employee_equipment_action" />
 
 </odoo>

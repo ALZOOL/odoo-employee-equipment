@@ -8,9 +8,9 @@
               ],
     'data':[
         'security/ir.model.access.csv',
-        'views/base_menu.xml',
         'views/equipment_view.xml',
         'views/hr_employee_view.xml',
+        'views/base_menu.xml',
         
     ],
 

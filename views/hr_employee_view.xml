@@ -17,14 +17,10 @@
 
             </field>
         </record>
-
         <record model="ir.actions.act_window" id="hr_employee_equipment_action">
             <field name="name">hr.employee.equipment.action</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">list,form</field>
         </record>
-
-        <menuitem id="equipment_menuitem" name="Equipment" parent="equipment_menu" action="equipment_action" />
-
     </data>
 </odoo>
