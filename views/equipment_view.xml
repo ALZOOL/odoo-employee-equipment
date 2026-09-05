@@ -11,7 +11,7 @@
                     <field name="price" />
                     <field name="active" />
                     <field name="status" />
-                    <field name="employee_id" invisible="status != 'assigned'"/>
+                    <field name="employee_id" invisible="status != 'assigned'" />
 
                 </list>
             </field>
@@ -37,10 +37,12 @@
                             <field name="price" />
                             <field name="active" />
                             <field name="status" />
-                            <field name="employee_id" invisible="status != 'assigned'"/>
-                            <button name="action_status_assigend" type="object" string="Make Assigned"/>
-                            <button name="action_status_available" type="object" string="Make Available"/>
-                            <button name="action_return" type="object" string="Return"/>
+                            <field name="employee_id" invisible="status != 'assigned'" />
+                            <button name="action_status_assigend" type="object"
+                                string="Make Assigned" />
+                            <button name="action_status_available" type="object"
+                                string="Make Available" />
+                            <button name="action_return" type="object" string="Return" />
                         </group>
                     </sheet>
 
@@ -60,13 +62,60 @@
             </field>
         </record>
 
+        <record id="device_equipment_search" model="ir.ui.view">
+            <field name="name">device.equipment.search</field>
+            <field name="model">device.equipment</field>
+
+            <field name="arch" type="xml">
+                <search>
+
+                    <!-- Search -->
+                    <field name="name" />
+                    <field name="serial_number" />
+                    <field name="employee_id" />
+
+                    <!-- Filters -->
+                    <filter
+                        name="available"
+                        string="Available"
+                        domain="[('status', '=', 'available')]"
+                    />
+
+                    <filter
+                        name="Assigned"
+                        string="Assigned"
+                        domain="[('status', '=', 'assigned')]"
+                    />
+
+                    <separator />
+
+                    <!-- Group By -->
+                    <group expand="0" string="Group By">
+
+                        <filter
+                            name="group_by_status"
+                            string="Status"
+                            context="{'group_by': 'status'}"
+                        />
+
+                        <filter
+                            name="group_by_employee"
+                            string="Employee"
+                            context="{'group_by': 'employee_id'}"
+                        />
+
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="equipment_action">
             <field name="name">device.equipment.action</field>
             <field name="res_model">device.equipment</field>
             <field name="view_mode">list,form</field>
         </record>
 
-        
 
     </data>
 </odoo>
