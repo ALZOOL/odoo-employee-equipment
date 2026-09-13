@@ -7,8 +7,7 @@
     <record id="group_equipment_manager" model="res.groups">
         <field name="name">Equipment Manager</field>
 
-        <field name="implied_ids"
-               eval="[(4, ref('group_equipment_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('group_equipment_user'))]"/>
     </record>
 
-</odoo>
+</odoo>  
