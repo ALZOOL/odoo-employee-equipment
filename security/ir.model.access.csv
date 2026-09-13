@@ -1,4 +1,4 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_equipment,access_equipment,model_device_equipment,,1,1,1,1
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm _unlink
+# access_equipment,access_equipment,model_device_equipment,,1,1,1,1
 access_equipment_user,access_equipment_user,model_device_equipment,group_equipment_user,1,1,1,0
 access_equipment_user_manager,access_equipment_user_manager,model_device_equipment,group_equipment_manager,1,1,1,1

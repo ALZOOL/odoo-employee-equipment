@@ -7,9 +7,8 @@
                'hr',
               ],
     'data':[
-        'security/equipment_security.xml',
+        'views/equipment_security.xml',
         'security/ir.model.access.csv',
-        
         'views/equipment_view.xml',
         'views/hr_employee_view.xml',
         'views/base_menu.xml',
