@@ -48,3 +48,82 @@ class EquipmentApi(http.Controller):
             'employee_id': equipment.employee_id.id if equipment.employee_id else None,
             }
         return request.make_json_response(data)
+
+    @http.route(
+        '/api/equipment',
+        type='http',
+        auth='public',
+        methods=['POST'],
+        csrf=False
+    )
+    def create_equipment(self):
+
+        data = request.get_json_data()
+
+        equipment_record = request.env['device.equipment'].sudo().create({
+            'name': data.get('name'),
+            'serial_number': data.get('serial_number'),
+            'purchase_date': data.get('purchase_date'),
+            'price': data.get('price'),
+            'active': data.get('active', True),
+            'status': data.get('status'),
+        })
+
+        return request.make_json_response({
+            'message': 'Equipment created successfully',
+            'id': equipment_record.id,
+            'name': equipment_record.name,
+        }, status=201)
+
+
+    @http.route(
+    '/api/equipment/<int:equipment_id>',
+    type='http',
+    auth='public',
+    methods=['PUT'],
+    csrf=False
+    )
+    def update_equipment(self, equipment_id):
+
+        equipment_record = request.env['device.equipment'].sudo().browse(equipment_id)
+
+        if not equipment_record.exists():
+            return request.make_json_response({
+                'error': 'Equipment not found'
+            }, status=404)
+
+        data = request.get_json_data()
+
+        equipment_record.write({
+            'name': data.get('name', equipment_record.name),
+            'serial_number': data.get('serial_number', equipment_record.serial_number),
+            'price': data.get('price', equipment_record.price),
+            'status': data.get('status', equipment_record.status),
+            'active': data.get('active', equipment_record.active),
+        })
+
+        return request.make_json_response({
+            'message': 'Equipment updated successfully',
+            'id': equipment_record.id
+        })
+    @http.route(
+    '/api/equipment/<int:equipment_id>',
+    type='http',
+    auth='public',
+    methods=['DELETE'],
+    csrf=False
+    )
+    def delete_equipment(self, equipment_id):
+
+        equipment_record = request.env['device.equipment'].sudo().browse(equipment_id)
+
+        if not equipment_record.exists():
+            return request.make_json_response({
+                'error': 'Equipment not found'
+            }, status=404)
+
+        equipment_record.unlink()
+
+        return request.make_json_response({
+            'message': 'Equipment deleted successfully'
+        })
