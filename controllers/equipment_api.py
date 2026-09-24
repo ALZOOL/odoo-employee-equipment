@@ -2,6 +2,21 @@ from odoo import http
 from odoo.http import request
 
 class EquipmentApi(http.Controller):
+
+    def _check_token(self):
+        API_TOKEN = 'my-secret-token'
+
+        auth_header = request.httprequest.headers.get('Authorization')
+
+        if auth_header != f'Bearer {API_TOKEN}':
+            return request.make_json_response(
+                {'error': 'Unauthorized'},
+                status=401
+            )
+
+        return None
+
+    
     #get all equipment records
     @http.route(
         '/api/equipment',
@@ -11,6 +26,9 @@ class EquipmentApi(http.Controller):
         csrf=False
     )
     def get_equipment(self):
+        error = self._check_token()
+        if error:
+            return error
         equipment = request.env['device.equipment'].sudo().search([])
 
         data = []
@@ -35,6 +53,9 @@ class EquipmentApi(http.Controller):
         csrf=False
     )
     def get_equipment_by_id(self, equipment_id):
+        error = self._check_token()
+        if error:
+            return error
         equipment = request.env['device.equipment'].sudo().browse(equipment_id)
         if not equipment.exists():
             return request.make_json_response({'error': 'Equipment not found'}, status=404)
@@ -57,23 +78,16 @@ class EquipmentApi(http.Controller):
         csrf=False
     )
     def create_equipment(self):
+        error = self._check_token()
+        if error:
+            return error
 
         data = request.get_json_data()
 
-        equipment_record = request.env['device.equipment'].sudo().create({
-            'name': data.get('name'),
-            'serial_number': data.get('serial_number'),
-            'purchase_date': data.get('purchase_date'),
-            'price': data.get('price'),
-            'active': data.get('active', True),
-            'status': data.get('status'),
-        })
-
         return request.make_json_response({
-            'message': 'Equipment created successfully',
-            'id': equipment_record.id,
-            'name': equipment_record.name,
-        }, status=201)
+            'message': 'JSON received successfully',
+            'data': data
+            }, status=201)
 
 
     @http.route(
@@ -84,6 +98,10 @@ class EquipmentApi(http.Controller):
     csrf=False
     )
     def update_equipment(self, equipment_id):
+
+        error = self._check_token()
+        if error:
+            return error
 
         equipment_record = request.env['device.equipment'].sudo().browse(equipment_id)
 
@@ -114,6 +132,10 @@ class EquipmentApi(http.Controller):
     csrf=False
     )
     def delete_equipment(self, equipment_id):
+
+        error = self._check_token()
+        if error:
+            return error
 
         equipment_record = request.env['device.equipment'].sudo().browse(equipment_id)
 

@@ -38,10 +38,8 @@
                             <field name="active" />
                             <field name="status" />
                             <field name="employee_id" invisible="status != 'assigned'" />
-                            <button name="action_status_assigend" type="object"
-                                string="Make Assigned" />
-                            <button name="action_status_available" type="object"
-                                string="Make Available" />
+                            <button name="action_status_assigend" type="obj0ect" string="Make Assigned" />
+                            <button name="action_status_available" type="object" string="Make Available" />
                             <button name="action_return" type="object" string="Return" />
                         </group>
                     </sheet>
@@ -75,34 +73,18 @@
                     <field name="employee_id" />
 
                     <!-- Filters -->
-                    <filter
-                        name="available"
-                        string="Available"
-                        domain="[('status', '=', 'available')]"
-                    />
+                    <filter name="available" string="Available" domain="[('status', '=', 'available')]" />
 
-                    <filter
-                        name="Assigned"
-                        string="Assigned"
-                        domain="[('status', '=', 'assigned')]"
-                    />
+                    <filter name="Assigned" string="Assigned" domain="[('status', '=', 'assigned')]" />
 
                     <separator />
 
                     <!-- Group By -->
                     <group expand="0" string="Group By">
 
-                        <filter
-                            name="group_by_status"
-                            string="Status"
-                            context="{'group_by': 'status'}"
-                        />
+                        <filter name="group_by_status" string="Status" context="{'group_by': 'status'}" />
 
-                        <filter
-                            name="group_by_employee"
-                            string="Employee"
-                            context="{'group_by': 'employee_id'}"
-                        />
+                        <filter name="group_by_employee" string="Employee" context="{'group_by': 'employee_id'}" />
 
                     </group>
 
