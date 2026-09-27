@@ -83,11 +83,19 @@ class EquipmentApi(http.Controller):
             return error
 
         data = request.get_json_data()
-
+        equipment_record = request.env['device.equipment'].sudo().create({
+            'name': data.get('name'),
+            'serial_number': data.get('serial_number'),
+            'purchase_date': data.get('purchase_date'),
+            'price': data.get('price'),
+            'status': data.get('status', 'available'),
+            'active': data.get('active', True),
+        })
         return request.make_json_response({
-            'message': 'JSON received successfully',
-            'data': data
-            }, status=201)
+            'message': 'Equipment created successfully',
+            'id': equipment_record.id,
+            'name': equipment_record.name,
+        }, status=201)
 
 
     @http.route(
