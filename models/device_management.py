@@ -1,5 +1,6 @@
 from odoo import models, fields
 from odoo.exceptions import UserError
+from custom_addons.odoo_employee_equipment.services.weather_temp import weather_temp
 
 
 class DeviceManagement(models.Model):
